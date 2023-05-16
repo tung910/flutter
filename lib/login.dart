@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_learn_1/main.dart';
 
 class LoginScreen2 extends StatefulWidget {
   const LoginScreen2({super.key});
@@ -20,11 +21,10 @@ class _LoginScreen2State extends State<LoginScreen2> {
                 Container(
                   alignment: Alignment.center,
                   width: double.infinity,
-                  height: 400,
                   child: Column(
                     children: [
                       const SizedBox(
-                        height: 230 / 5,
+                        height: 40,
                       ),
                       Image.asset(
                         'assets/images/vti-logo.jpg',
@@ -40,6 +40,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                 )
               ],
             ),
+            const SizedBox(height: 40),
             Container(
                 margin: const EdgeInsets.only(left: 50.0, right: 50.0),
                 child: Column(children: [
@@ -62,8 +63,8 @@ class _LoginScreen2State extends State<LoginScreen2> {
                           ),
                         ],
                       ),
-                      child: Column(
-                        children: const [
+                      child: const Column(
+                        children: [
                           SizedBox(height: 10),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16),
@@ -98,7 +99,13 @@ class _LoginScreen2State extends State<LoginScreen2> {
                       backgroundColor: Colors.deepPurpleAccent.shade400,
                       minimumSize: const Size.fromHeight(50),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const MyHomePage(title: 'hello')));
+                    },
                     child: const Text(
                       'Submit',
                       style: TextStyle(fontSize: 14),
