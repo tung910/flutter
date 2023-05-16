@@ -9,6 +9,14 @@ class LoginScreen2 extends StatefulWidget {
 }
 
 class _LoginScreen2State extends State<LoginScreen2> {
+  final TextEditingController emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,21 +71,22 @@ class _LoginScreen2State extends State<LoginScreen2> {
                           ),
                         ],
                       ),
-                      child: const Column(
+                      child: Column(
                         children: [
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: TextField(
                               keyboardType: TextInputType.emailAddress,
+                              controller: emailController,
                               textInputAction: TextInputAction.next,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: "Email or phone number",
                               ),
                             ),
                           ),
-                          SizedBox(height: 16),
-                          Padding(
+                          const SizedBox(height: 16),
+                          const Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: 16,
                             ),
@@ -90,7 +99,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                               obscureText: true,
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                         ],
                       )),
                   const SizedBox(height: 19),
@@ -100,6 +109,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                       minimumSize: const Size.fromHeight(50),
                     ),
                     onPressed: () {
+                      debugPrint(emailController.text);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
