@@ -55,18 +55,26 @@ class MessengerScreen extends StatelessWidget {
             child: Row(
               children: [
                 for (int i = 0; i < 10; i++)
-                  Padding(
+                  Container(
                     padding:
                         const EdgeInsets.only(left: 15, top: 15, bottom: 15),
+                    width: 80,
                     child: Column(
                       children: [
                         Stack(
                           children: [
-                            const CircleAvatar(
-                              radius: 20,
-                              backgroundImage:
-                                  NetworkImage('https://picsum.photos/200/300'),
-                            ),
+                            i == 0
+                                ? CircleAvatar(
+                                    radius: 20,
+                                    backgroundColor: Colors.blueGrey.shade400,
+                                    backgroundImage: const AssetImage(
+                                        'assets/images/add.png'),
+                                  )
+                                : CircleAvatar(
+                                    radius: 20,
+                                    backgroundImage:
+                                        NetworkImage(users[i].image),
+                                  ),
                             Positioned(
                               bottom: 0,
                               right: 0,
@@ -108,6 +116,7 @@ class MessengerScreen extends StatelessWidget {
 class ActiveUser extends StatelessWidget {
   const ActiveUser({super.key, required this.index});
   final int index;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -154,7 +163,7 @@ class ActiveUser extends StatelessWidget {
                     Opacity(
                       opacity: 0.3,
                       child: Text(
-                        '${users[index].desc} · 9:40 AM',
+                        '${users[index].desc} · ${users[index].time} ',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -163,7 +172,9 @@ class ActiveUser extends StatelessWidget {
                 ),
               ),
             ),
-            const Icon(Icons.radio_button_off)
+            users[index].isSeen
+                ? const Icon(Icons.radio_button_checked)
+                : const Icon(Icons.radio_button_off)
           ],
         ),
       ),
