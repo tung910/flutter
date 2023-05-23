@@ -8,8 +8,11 @@ class MessengerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const CircleAvatar(
-          backgroundImage: NetworkImage('https://picsum.photos/200/300'),
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 16),
+          child: CircleAvatar(
+            backgroundImage: NetworkImage('https://picsum.photos/200/300'),
+          ),
         ),
         title: const Text(
           'Chats',
@@ -27,15 +30,24 @@ class MessengerScreen extends StatelessWidget {
         leadingWidth: 40,
       ),
       body: Column(children: [
-        Container(
-          height: 50,
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          child: const TextField(
+        Padding(
+          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+          child: TextField(
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: 'Search',
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+              hintText: "Search...",
+              hintStyle: TextStyle(color: Colors.grey.shade600),
+              prefixIcon: Icon(
+                Icons.search,
+                color: Colors.grey.shade600,
+                size: 20,
+              ),
+              filled: true,
+              fillColor: Colors.grey.shade100,
+              contentPadding: const EdgeInsets.all(8),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: Colors.grey.shade100)),
+            ),
           ),
         ),
         SingleChildScrollView(
@@ -85,9 +97,9 @@ class MessengerScreen extends StatelessWidget {
                   )
               ],
             )),
-        const ActiveUser(index: 0),
-        const ActiveUser(index: 1),
-        const ActiveUser(index: 2),
+        const Expanded(
+          child: ConversationList(),
+        )
       ]),
     );
   }
@@ -98,60 +110,79 @@ class ActiveUser extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Stack(
-            children: [
-              const CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage('https://picsum.photos/200/300'),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  width: 10,
-                  height: 10,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.green,
-                  ),
+    return GestureDetector(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              children: [
+                const CircleAvatar(
+                  radius: 30,
+                  backgroundImage:
+                      NetworkImage('https://picsum.photos/200/300'),
                 ),
-              )
-            ],
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    users[index].name,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Opacity(
-                    opacity: 0.3,
-                    child: Text(
-                      '${users[index].desc} · 9:40 AM',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    width: 10,
+                    height: 10,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.green,
                     ),
-                  )
-                ],
+                  ),
+                )
+              ],
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      users[index].name,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Opacity(
+                      opacity: 0.3,
+                      child: Text(
+                        '${users[index].desc} · 9:40 AM',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          const Icon(Icons.radio_button_off)
-        ],
+            const Icon(Icons.radio_button_off)
+          ],
+        ),
       ),
+      onTap: () {},
+    );
+  }
+}
+
+class ConversationList extends StatelessWidget {
+  const ConversationList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: users.length,
+      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.only(top: 16),
+      itemBuilder: (context, index) => ActiveUser(index: index),
     );
   }
 }
