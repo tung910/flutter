@@ -1,6 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_learn_1/main.dart';
 
+@RoutePage()
 class LoginScreen1 extends StatefulWidget {
   const LoginScreen1({Key? key}) : super(key: key);
 
@@ -128,6 +129,12 @@ class _LoginScreen1State extends State<LoginScreen1> {
             child: const Text("Login"),
           ),
         ],
+      ),
+      bottomNavigationBar: TextButton(
+        child: const Text('next'),
+        onPressed: () {
+          AutoRouter.of(context).pushNamed('/login2');
+        },
       ),
     );
   }

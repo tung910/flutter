@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+@RoutePage()
 List<User> users = <User>[
   User('https://picsum.photos/seed/picsum/200/300', 'Joe', 'In a word far away',
       Status.online, '9:30 AM', false),

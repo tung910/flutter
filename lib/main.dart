@@ -1,31 +1,50 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_learn_1/messenger_screen.dart';
+import 'package:flutter_application_learn_1/routes.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final _appRouter = AppRouter();
+
+  MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _appRouter.config(),
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MessengerScreen(),
+      title: 'flutter',
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+// assuing this is the root widget of your App
+class App extends StatelessWidget {
+  // make sure you don't initiate your router
+  // inside of the build function.
+  final _appRouter = AppRouter();
 
-  final String title;
+  App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      routerConfig: _appRouter.config(),
+    );
+  }
+}
+
+@RoutePage()
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({
+    super.key,
+  });
+
+  final String title = 'Tung';
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -55,24 +74,17 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Hello: tung.tranthanh2',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            Image.asset('assets/images/vti-logo.jpg')
-          ],
-        ),
-      ),
+      body: const SafeArea(
+          child: Expanded(
+        // nested routes will be rendered here
+        child: AutoRouter(),
+      )),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
+      ),
+      bottomNavigationBar: Row(
+        children: const [Icon(Icons.login), Icon(Icons.logo_dev)],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );

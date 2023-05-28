@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_learn_1/contacts_screen.dart';
 
+@RoutePage()
 class MessengerScreen extends StatelessWidget {
   const MessengerScreen({super.key});
 
@@ -23,6 +25,13 @@ class MessengerScreen extends StatelessWidget {
           Image.asset('assets/images/Oval.png', width: 40, height: 40),
           const SizedBox(width: 12),
           Image.asset('assets/images/Message.png', width: 40, height: 40),
+          const SizedBox(width: 16),
+          GestureDetector(
+            child: Image.asset('assets/images/Oval.png', width: 40, height: 40),
+            onTap: () {
+              AutoRouter.of(context).pop();
+            },
+          ),
           const SizedBox(width: 16),
         ],
         backgroundColor: Colors.white,

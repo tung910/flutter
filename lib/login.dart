@@ -1,6 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_learn_1/main.dart';
 
+@RoutePage()
 class LoginScreen2 extends StatefulWidget {
   const LoginScreen2({super.key});
 
@@ -109,12 +110,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                       minimumSize: const Size.fromHeight(50),
                     ),
                     onPressed: () {
-                      debugPrint(emailController.text);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const MyHomePage(title: 'hello')));
+                      AutoRouter.of(context).pushNamed('/messenger');
                     },
                     child: const Text(
                       'Submit',
