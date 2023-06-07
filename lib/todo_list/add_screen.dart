@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_learn_1/todo_list/data.dart';
+// import 'package:flutter_application_learn_1/todo_list/data.dart';
 
 const List<String> list = <String>['high', 'low', 'medium'];
 
-@RoutePage<TodoEntity>()
+@RoutePage()
 class AddTodoScreen extends StatefulWidget {
   const AddTodoScreen({super.key});
 
@@ -17,11 +17,8 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
   onPressed(context) {
     textFieldsValue.clear();
     _formKey.currentState?.validate();
-
-    AutoRouter.of(context).pop(TodoEntity(
-        priority: textFieldsValue[0] as Priority,
-        title: textFieldsValue[1],
-        description: textFieldsValue[3]));
+print(textFieldsValue);
+    // AutoRouter.of(context).pop(true);
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

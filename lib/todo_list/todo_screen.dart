@@ -31,10 +31,9 @@ class _TodoListScreenState extends State<TodoListScreen> {
                   priority: todoList[index].priority,
                 )),
         floatingActionButton: FloatingActionButton(
-          onPressed: () async => {
-            result = await AutoRouter.of(context).pushNamed('/addtodo')
-                as TodoEntity,
-            print(result)
+          onPressed: ()   => {
+                AutoRouter.of(context).pushNamed('/addtodo'),
+
           },
           backgroundColor: const Color.fromRGBO(236, 230, 240, 1),
           child: const Icon(Icons.add, color: Color.fromRGBO(103, 80, 164, 1)),
