@@ -12,5 +12,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: TourRoute.page, path: '/tour', initial: true),
         AutoRoute(page: AddTodoRoute.page, path: '/addtodo'),
         AutoRoute(page: MessengerRoute.page, path: '/messenger'),
+        AutoRoute(page: TourDetailRoute.page, path: '/tour-detail'),
       ];
 }

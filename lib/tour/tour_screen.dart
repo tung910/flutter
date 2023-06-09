@@ -9,6 +9,7 @@ class TourScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Bashkortostan'),
         titleTextStyle: const TextStyle(
@@ -24,7 +25,7 @@ class TourScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.only(left: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -32,7 +33,7 @@ class TourScreen extends StatelessWidget {
                   style: TextStyle(color: Color.fromARGB(36, 36, 36, 1))),
               // input
               Padding(
-                padding: const EdgeInsets.only(top: 24, bottom: 28),
+                padding: const EdgeInsets.only(top: 24, bottom: 28, right: 24),
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: "Enter name or category",
@@ -97,47 +98,52 @@ class TourScreen extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              Container(
-                child: Stack(children: [
-                  Image.asset('assets/images/Salavat_Yulaev.png'),
-                  Positioned(
-                      right: 16,
-                      top: 16,
-                      child: Icon(
-                        Icons.favorite,
-                        color: Colors.red.shade800,
-                      )),
 
-                  //content
-
-                  Positioned(
-                      left: 16,
-                      bottom: 16,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Monument to Salavat Yulaev',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Container(
-                              padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Color.fromRGBO(255, 255, 255, 0x1),
-                              ),
-                              child: const Row(
-                                  children: [Icon(Icons.star), Text('4,0')]))
-                        ],
-                      ))
-                ]),
-              )
+              SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
+                  child: Row(
+                    children: [
+                      for (int i = 0; i < 5; i++) TourItem(),
+                    ],
+                  ))
             ],
           )),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            CircleAvatar(
+              radius: 20,
+              backgroundColor: const Color.fromRGBO(235, 87, 87, 1),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                ),
+                onPressed: () {},
+              ),
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.favorite_outline,
+              ),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.chat_bubble_outline,
+              ),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.settings_outlined,
+              ),
+              onPressed: () {},
+            )
+          ],
+        ),
+      ),
     );
   }
 }
@@ -152,4 +158,77 @@ class Category {
   String title;
   String icon;
   Category(this.icon, this.title);
+}
+
+class TourItem extends StatelessWidget {
+  const TourItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        margin: const EdgeInsets.only(left: 12),
+        child: Stack(children: [
+          Image.asset('assets/images/Salavat_Yulaev.png'),
+          Positioned(
+              right: 16,
+              top: 16,
+              child: CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.favorite,
+                  color: Colors.red.shade800,
+                ),
+              )),
+
+          //content
+
+          Positioned(
+              left: 16,
+              bottom: 16,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 115,
+                    margin: const EdgeInsets.only(bottom: 8),
+                    child: const Text(
+                      'Monument to Salavat Yulaev',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color.fromRGBO(255, 255, 255, 0.3),
+                      ),
+                      child: const Row(children: [
+                        Icon(
+                          Icons.star,
+                          color: Color(0xffFFD875),
+                        ),
+                        Text(
+                          '4,0',
+                          style: TextStyle(
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                          ),
+                        )
+                      ]))
+                ],
+              ))
+        ]),
+      ),
+      onTap: () {
+        print(MediaQuery.of(context).size.height);
+        AutoRouter.of(context).pushNamed('/tour-detail');
+      },
+    );
+  }
 }
