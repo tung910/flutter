@@ -56,9 +56,9 @@ class TourDetailScreen extends StatelessWidget {
                               const SizedBox(
                                 width: 8,
                               ),
-                              const Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Text(
                                     'Azat Khabirov',
                                     style: TextStyle(
@@ -110,8 +110,8 @@ class TourDetailScreen extends StatelessWidget {
                       fontSize: 15,
                     )),
               ),
-              const Row(
-                children: [
+              Row(
+                children: const [
                   Text(
                     'Read more',
                     style: TextStyle(color: Color(0xFFFF678B)),

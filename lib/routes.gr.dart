@@ -9,15 +9,17 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i9;
+import 'package:flutter/material.dart' as _i10;
 import 'package:flutter_application_learn_1/login.dart' as _i1;
 import 'package:flutter_application_learn_1/login_screen.dart' as _i2;
 import 'package:flutter_application_learn_1/main.dart' as _i3;
 import 'package:flutter_application_learn_1/messenger_screen.dart' as _i4;
 import 'package:flutter_application_learn_1/todo_list/add_screen.dart' as _i5;
+import 'package:flutter_application_learn_1/todo_list/data.dart' as _i11;
 import 'package:flutter_application_learn_1/todo_list/todo_screen.dart' as _i6;
 import 'package:flutter_application_learn_1/tour/tour_detail.screen.dart'
-    as _i8;
-import 'package:flutter_application_learn_1/tour/tour_screen.dart' as _i7;
+    as _i7;
+import 'package:flutter_application_learn_1/tour/tour_screen.dart' as _i8;
 
 abstract class $AppRouter extends _i9.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -49,9 +51,18 @@ abstract class $AppRouter extends _i9.RootStackRouter {
       );
     },
     AddTodoRoute.name: (routeData) {
+      final args = routeData.argsAs<AddTodoRouteArgs>(
+          orElse: () => const AddTodoRouteArgs());
       return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.AddTodoScreen(),
+        child: _i5.AddTodoScreen(
+          key: args.key,
+          priority: args.priority,
+          title: args.title,
+          description: args.description,
+          index: args.index,
+          isEdit: args.isEdit,
+        ),
       );
     },
     TodoListRoute.name: (routeData) {
@@ -60,16 +71,16 @@ abstract class $AppRouter extends _i9.RootStackRouter {
         child: const _i6.TodoListScreen(),
       );
     },
-    TourRoute.name: (routeData) {
-      return _i9.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i7.TourScreen(),
-      );
-    },
     TourDetailRoute.name: (routeData) {
       return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.TourDetailScreen(),
+        child: const _i7.TourDetailScreen(),
+      );
+    },
+    TourRoute.name: (routeData) {
+      return _i9.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i8.TourScreen(),
       );
     },
   };
@@ -133,16 +144,60 @@ class MessengerRoute extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.AddTodoScreen]
-class AddTodoRoute extends _i9.PageRouteInfo<void> {
-  const AddTodoRoute({List<_i9.PageRouteInfo>? children})
-      : super(
+class AddTodoRoute extends _i9.PageRouteInfo<AddTodoRouteArgs> {
+  AddTodoRoute({
+    _i10.Key? key,
+    _i11.Priority? priority,
+    String title = '',
+    String description = '',
+    int? index,
+    bool isEdit = false,
+    List<_i9.PageRouteInfo>? children,
+  }) : super(
           AddTodoRoute.name,
+          args: AddTodoRouteArgs(
+            key: key,
+            priority: priority,
+            title: title,
+            description: description,
+            index: index,
+            isEdit: isEdit,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AddTodoRoute';
 
-  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
+  static const _i9.PageInfo<AddTodoRouteArgs> page =
+      _i9.PageInfo<AddTodoRouteArgs>(name);
+}
+
+class AddTodoRouteArgs {
+  const AddTodoRouteArgs({
+    this.key,
+    this.priority,
+    this.title = '',
+    this.description = '',
+    this.index,
+    this.isEdit = false,
+  });
+
+  final _i10.Key? key;
+
+  final _i11.Priority? priority;
+
+  final String title;
+
+  final String description;
+
+  final int? index;
+
+  final bool isEdit;
+
+  @override
+  String toString() {
+    return 'AddTodoRouteArgs{key: $key, priority: $priority, title: $title, description: $description, index: $index, isEdit: $isEdit}';
+  }
 }
 
 /// generated route for
@@ -160,21 +215,7 @@ class TodoListRoute extends _i9.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.TourScreen]
-class TourRoute extends _i9.PageRouteInfo<void> {
-  const TourRoute({List<_i9.PageRouteInfo>? children})
-      : super(
-          TourRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'TourRoute';
-
-  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i8.TourDetailScreen]
+/// [_i7.TourDetailScreen]
 class TourDetailRoute extends _i9.PageRouteInfo<void> {
   const TourDetailRoute({List<_i9.PageRouteInfo>? children})
       : super(
@@ -183,6 +224,20 @@ class TourDetailRoute extends _i9.PageRouteInfo<void> {
         );
 
   static const String name = 'TourDetailRoute';
+
+  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i8.TourScreen]
+class TourRoute extends _i9.PageRouteInfo<void> {
+  const TourRoute({List<_i9.PageRouteInfo>? children})
+      : super(
+          TourRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TourRoute';
 
   static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
 }

@@ -104,7 +104,7 @@ class TourScreen extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   child: Row(
                     children: [
-                      for (int i = 0; i < 5; i++) TourItem(),
+                      for (int i = 0; i < 5; i++) const TourItem(),
                     ],
                   ))
             ],
@@ -209,7 +209,7 @@ class TourItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         color: const Color.fromRGBO(255, 255, 255, 0.3),
                       ),
-                      child: const Row(children: [
+                      child: Row(children: const [
                         Icon(
                           Icons.star,
                           color: Color(0xffFFD875),

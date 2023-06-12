@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_learn_1/routes.gr.dart';
 import 'package:flutter_application_learn_1/todo_list/data.dart';
+import 'package:flutter_application_learn_1/todo_list/todo_controller.dart';
+import 'package:provider/provider.dart';
 
 @RoutePage()
 class TodoListScreen extends StatefulWidget {
@@ -23,17 +26,18 @@ class _TodoListScreenState extends State<TodoListScreen> {
           centerTitle: true,
           backgroundColor: const Color.fromRGBO(103, 80, 164, 1),
         ),
-        body: ListView.builder(
-            itemCount: todoList.length,
-            itemBuilder: (context, index) => TodoItem(
-                  title: todoList[index].title,
-                  description: todoList[index].description,
-                  priority: todoList[index].priority,
-                )),
+        body: Consumer<TodoController>(
+            builder: (context, value, child) => ListView.builder(
+                itemCount: value.todoList.length,
+                itemBuilder: (context, index) => TodoItem(
+                    title: value.todoList[index].title,
+                    description: value.todoList[index].description,
+                    priority: value.todoList[index].priority,
+                    index: index))),
         floatingActionButton: FloatingActionButton(
-          onPressed: ()   => {
-                AutoRouter.of(context).pushNamed('/addtodo'),
-
+          onPressed: () => {
+            // AutoRouter.of(context).pushNamed('/addtodo'),
+            AutoRouter.of(context).push(AddTodoRoute())
           },
           backgroundColor: const Color.fromRGBO(236, 230, 240, 1),
           child: const Icon(Icons.add, color: Color.fromRGBO(103, 80, 164, 1)),
@@ -49,12 +53,15 @@ class TodoItem extends StatelessWidget {
       required this.priority,
       required this.title,
       required this.description,
+      required this.index,
       this.id});
 
   final Priority priority;
   final String title;
   final String description;
   final int? id;
+  final int? index;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -82,8 +89,19 @@ class TodoItem extends StatelessWidget {
                 ],
               ),
             ),
-            Image.asset('assets/images/edit.png'),
-            Image.asset('assets/images/bin.png'),
+            GestureDetector(
+                onTap: () => {
+                      AutoRouter.of(context).push(AddTodoRoute(
+                          title: title,
+                          description: description,
+                          priority: priority,
+                          index: index,
+                          isEdit: true))
+                    },
+                child: Image.asset('assets/images/edit.png')),
+            GestureDetector(
+                onTap: () => {context.read<TodoController>().onDelete(index)},
+                child: Image.asset('assets/images/bin.png')),
           ],
         ),
       ),
