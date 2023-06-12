@@ -20,6 +20,15 @@ class AppRouter extends $AppRouter {
         ),
         AutoRoute(page: AddTodoRoute.page, path: '/edittodo'),
 
+        AutoRoute(
+            page: TodoListRouteBloc.page,
+            path: '/todo_list_bloc',
+            initial: true),
+        AutoRoute(
+          page: AddOrEditBlocTodoRoute.page,
+          path: '/add_or_edit_bloc',
+        ),
+        AutoRoute(page: AddTodoRoute.page, path: '/addtodo'),
         AutoRoute(page: MessengerRoute.page, path: '/messenger'),
         AutoRoute(page: TourDetailRoute.page, path: '/tour-detail'),
       ];
