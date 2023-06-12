@@ -24,6 +24,6 @@ class TodoEntity {
   final int? id;
 
   final Priority priority;
-  late final String title;
-  late final String description;
+  final String title;
+  final String description;
 }

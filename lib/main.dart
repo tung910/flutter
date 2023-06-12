@@ -1,6 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_learn_1/routes.dart';
+import 'package:flutter_application_learn_1/todo_list/data.dart';
+import 'package:flutter_application_learn_1/todo_list_bloc/todo_list_bloc.dart';
+import 'package:flutter_application_learn_1/todo_list_bloc/todo_list_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,10 +18,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: _appRouter.config(),
-      debugShowCheckedModeBanner: false,
-      title: 'flutter',
+    return BlocProvider(
+      create: (context) => TodoListBloc(TodoListState([TodoEntity(
+          priority: Priority.low,
+          title: 'Quet Nha De',
+          description:
+          'Supporting line text lorem ipsum dolor sit amet, consectetur,')])),
+      child: MaterialApp.router(
+        routerConfig: _appRouter.config(),
+        debugShowCheckedModeBanner: false,
+        title: 'flutter',
+      ),
     );
   }
 }

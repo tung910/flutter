@@ -9,7 +9,18 @@ class AppRouter extends $AppRouter {
         //of the replaceInRouteName property
         // AutoRoute(path: '', page: MyHomePage.page, children: [
         //   RedirectRoute(path: '', redirectTo: 'login1'),
-        AutoRoute(page: TourRoute.page, path: '/tour', initial: true),
+        AutoRoute(
+          page: TourRoute.page,
+          path: '/tour',
+        ),
+        AutoRoute(
+            page: TodoListRouteBloc.page,
+            path: '/todo_list_bloc',
+            initial: true),
+        AutoRoute(
+          page: AddOrEditBlocTodoRoute.page,
+          path: '/add_or_edit_bloc',
+        ),
         AutoRoute(page: AddTodoRoute.page, path: '/addtodo'),
         AutoRoute(page: MessengerRoute.page, path: '/messenger'),
         AutoRoute(page: TourDetailRoute.page, path: '/tour-detail'),
