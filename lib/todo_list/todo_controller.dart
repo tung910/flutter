@@ -22,8 +22,6 @@ class TodoController with ChangeNotifier {
         index + 1,
         TodoEntity(priority: priority, title: title, description: description)
             as Iterable<TodoEntity>);
-
-    print([...todoList].toList());
     notifyListeners();
   }
 
