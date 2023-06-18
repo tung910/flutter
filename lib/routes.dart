@@ -5,7 +5,11 @@ import 'package:flutter_application_learn_1/routes.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: TourRoute.page, path: '/tour', initial: true),
+        AutoRoute(page: BlogRoute.page, path: '/blogs', initial: true),
+        AutoRoute(
+          page: TourRoute.page,
+          path: '/tour',
+        ),
         AutoRoute(
           page: TodoListRoute.page,
           path: '/todo',
